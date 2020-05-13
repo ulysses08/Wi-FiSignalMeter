@@ -17,17 +17,23 @@
 Adafruit_SSD1306 display(0);
 
 void setup() {
+  Serial.begin(9600);
+
+  Serial.println("Void Setup Start");
+  
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C); //start the display
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.setCursor(30,0);
   display.println("Mini WiFi Scanner");
   display.display();						//must call display after every set of operations.
+  
+  Serial.println("Void Setup Complete");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  Serial.println("Start Main Loop");
   int num_networks = WiFi.scanNetworks();
   display.clearDisplay();
   for(int i = 0; i < num_networks && i < MAX_SSIDS; i++)
@@ -38,5 +44,6 @@ void loop() {
     display.print(WiFi.RSSI(i));				//Received Signal Strength Indicator
   }
   display.display();
+  Serial.println("Finish Main Loop");
   delay(1000);
 }
